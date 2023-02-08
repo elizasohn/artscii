@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/elizasohn/artscii/issues"
   },
-  "homepage": "https://github.com/elizasohn/artscii#readme"
+  "homepage": "https://github.com/elizasohn/artscii#readme",
+  "dependencies": {
+    "package.json": "^2.0.1"
+  }
 }
