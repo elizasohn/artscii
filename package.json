@@ -22,6 +22,11 @@
   },
   "homepage": "https://github.com/elizasohn/artscii#readme",
   "dependencies": {
-    "package.json": "^2.0.1"
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.0",
+    "package.json": "^0.0.0"
   }
 }
