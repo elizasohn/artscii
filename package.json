@@ -2,11 +2,12 @@
   "name": "artscii",
   "version": "1.0.0",
   "description": " App to create ASCII art",
-  "main": "index.js",
+  "main": "server.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
