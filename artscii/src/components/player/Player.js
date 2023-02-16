@@ -3,7 +3,7 @@ import './Player.css'
 
 const Player = (props) => {
     try {
-        if (!props.mode) {
+        if (!props.playerMode) {
             throw new Error('Player Error: No mode sent!')
         }
         if (!props.url) {
@@ -11,7 +11,7 @@ const Player = (props) => {
         }
         // TODO: check if url is bad
         else {
-            switch(props.mode)
+            switch(props.playerMode)
             {
                 case 'image':
                     return(
