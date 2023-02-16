@@ -9,7 +9,7 @@ const Player = (props) => {
         if (!props.url) {
             throw new Error('Player Error: No URL sent!')
         }
-        // TODO: check if url is bad
+        // TODO: check if URL is bad, parse URL for mode selection instead of passing in prop 
         else {
             switch(props.playerMode)
             {
@@ -28,11 +28,7 @@ const Player = (props) => {
     }
     catch (err) {
         console.error(err)
-        return(
-            <div class='player-window'>
-                <h1>Something went wrong! Sorry about that</h1>
-            </div>
-        )
+        return(<ErrorStateDisplay/>)
     }
 }
 
@@ -52,6 +48,14 @@ const Mp4Display = (props) => {
             <video class='video-display' controls>
                 <source src={props.url} type="video/mp4"/>
             </video>
+        </div>
+    )
+}
+
+const ErrorStateDisplay = () => {
+    return(
+        <div class='player-window'>
+            <h1>Something went wrong! Sorry about that</h1>
         </div>
     )
 }
