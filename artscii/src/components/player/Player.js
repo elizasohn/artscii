@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Player.css'
 
 const Player = (props) => {
@@ -40,7 +40,7 @@ const ImageDisplay = (props) => {
     return(
         <div class='player-window'>
             <h2 class='title-text'>{props.search}</h2>
-            <img src={props.url} alt={props.search} class='gif-display'/>
+            <img src={props.url} alt={props.search} class='image-display'/>
         </div>
     )
 }
@@ -49,6 +49,9 @@ const Mp4Display = (props) => {
     return(
         <div class='player-window'>
             <h2 class='title-text'>{props.search}</h2>
+            <video class='video-display' controls>
+                <source src={props.url} type="video/mp4"/>
+            </video>
         </div>
     )
 }
