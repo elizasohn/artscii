@@ -7,8 +7,7 @@ function App() {
 	return (
         	<div className="App">
         	<Header />
-        	{/* <img className='placeholder-gif' src='https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif' alt="placeholder-gif"/> */}
-			<Player url='https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif' search='testSearch' mode='gif'/>
+			<Player url='https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif' search='testSearch' mode='image'/>
         	<p>Site under construction.</p>
         	</div>
     	);

@@ -1,0 +1,17 @@
+.player-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+}
+
+.gif-display {
+    /* Currently set to placeholder values */
+    width: 480px;
+    height: 360px;
+}
+
+.title-text {
+    display: none
+}

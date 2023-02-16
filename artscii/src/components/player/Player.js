@@ -13,17 +13,13 @@ const Player = (props) => {
         else {
             switch(props.mode)
             {
-                case 'gif':
+                case 'image':
                     return(
-                        <GifDisplay url={props.url} search={props.search}/>
+                        <ImageDisplay url={props.url} search={props.search}/>
                     )
                 case 'mp4':
                     return(
                         <Mp4Display url={props.url} search={props.search}/>
-                    )
-                case 'png':
-                    return(
-                        <PngDisplay url={props.url} search={props.search}/>
                     )
                 default:
                     throw new Error('Player Error: Bad mode!');
@@ -33,32 +29,26 @@ const Player = (props) => {
     catch (err) {
         console.error(err)
         return(
-            <h1>Something went wrong! Sorry about that</h1>
+            <div class='player-window'>
+                <h1>Something went wrong! Sorry about that</h1>
+            </div>
         )
     }
 }
 
-const GifDisplay = (props) => {
+const ImageDisplay = (props) => {
     return(
-        <div>
-            <h1>GIF</h1>
-            <img src={props.url} alt={props.search}/>
+        <div class='player-window'>
+            <h2 class='title-text'>{props.search}</h2>
+            <img src={props.url} alt={props.search} class='gif-display'/>
         </div>
     )
 }
 
 const Mp4Display = (props) => {
     return(
-        <div>
-            <h1>MP4</h1>
-        </div>
-    )
-}
-
-const PngDisplay = (props) => {
-    return(
-        <div>
-            <h1>PNG</h1>
+        <div class='player-window'>
+            <h2 class='title-text'>{props.search}</h2>
         </div>
     )
 }
