@@ -1,6 +1,6 @@
 import './Main.css';
 import Player from '../player/Player';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function Main() {
     const [searchParam, setSearchParam] = useState('');
