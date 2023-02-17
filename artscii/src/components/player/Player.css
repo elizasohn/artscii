@@ -1,17 +1,7 @@
-:root {
-    /* --linkHover: #7719e6;
-    --accent: #19e6d5;
-    --white: #ffffff;
-    --nav-background: rgba(128, 128, 128, 0.2);
-    --main-background: #1a1a1a;
-  
-    --title_font: "Cairo", "Ubuntu", "Courier New", Courier, monospace;
-    --link_font: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold",
-      sans-serif; */
-    
+:root {  
     --content-width: 480px;
     --content-height: 360px;
-  }
+}
 
 .player-window {
     display: flex;
@@ -22,19 +12,15 @@
 }
 
 .image-display {
-    /* Currently set to placeholder values */
     width: var(--content-width);
     height: var(--content-height);
 }
 
 .video-display {
-    /* just to have some value for now, will update for actual player */
-    border: 2px solid red;
     width: var(--content-width);
     height: var(--content-height);
 }
 
 .title-text {
-    /* display: none */
-    color: red;
+    display: none
 }
