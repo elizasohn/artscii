@@ -2,6 +2,11 @@ import React from 'react';
 import './Player.css'
 
 const Player = (props) => {
+    
+    const handleClick = () => {
+        props.setDisplayMode('ascii')
+    }
+    
     try {
         // Stretch: Parse URL for mode selection instead of passing in prop? TBD
         if (!props.playerMode) {
@@ -17,11 +22,17 @@ const Player = (props) => {
         {
             case 'image':
                 return(
-                    <ImageDisplay url={processed_url.href} search={props.search}/>
+                    <div className='player'>
+                        <ImageDisplay url={processed_url.href} search={props.search}/>
+                        <button onClick={handleClick}>Asciify My Result</button>
+                    </div>
                 )
             case 'mp4':
                 return(
-                    <Mp4Display url={processed_url.href} search={props.search}/>
+                    <div className='player'>
+                        <Mp4Display url={processed_url.href} search={props.search}/>
+                        <button onClick={handleClick}>Asciify My Result</button>
+                    </div>
                 )
             default:
                 throw new Error('Player Error: Bad mode!');
