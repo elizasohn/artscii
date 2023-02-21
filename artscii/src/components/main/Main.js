@@ -9,7 +9,7 @@ function Main() {
 	const [displayText, setDisplayText] = useState('');
 	const [url, setUrl] = useState('https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif');
 	const [playerMode, setPlayerMode] = useState('image');
-    const [displayMode, setDisplayMode] = useState('input');
+    const [displayMode, setDisplayMode] = useState('ascii');
 	const [blob, setBlob] = useState('')
 
 	const updateTitle = (param) => {
