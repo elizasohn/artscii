@@ -1,40 +1,30 @@
 import React from 'react';
 import './Player.css'
+import { validatePlayerProps } from './validatePlayerProps';
 
 const Player = (props) => {
     try {
-        // Stretch: Parse URL for mode selection instead of passing in prop? TBD
-        if (!props.playerMode) {
-            throw new Error('Player Error: No mode sent!')
-        }
-        if (!props.url) {
-            throw new Error('Player Error: No URL sent!')
-        }
-        // Throws an exception if string is not in URL format
-        let processed_url = new URL(props.url);
-
-        switch(props.playerMode)
-        {
-            case 'image':
+        validatePlayerProps(props)
+        switch(props.playerMode) {
+            case 'url':
                 return(
-                    <ImageDisplay url={processed_url.href} search={props.search}/>
-                )
-            case 'mp4':
+                    <UrlDisplay url={props.src} search={props.search}/>
+                );
+            case 'rawImg':
                 return(
-                    <Mp4Display url={processed_url.href} search={props.search}/>
-                )
+                    <B64Display src={props.src} search={props.search}/>
+                );
             default:
-                throw new Error('Player Error: Bad mode!');
+                throw new Error('Invalid Player Type');
         }
-    }
-    catch (err) {
-        console.error(err)
+    } catch(err) {
+        console.error("Player: " + err);
         return(<ErrorStateDisplay/>)
     }
 }
 
 // Individual display components for different media
-const ImageDisplay = (props) => {
+const UrlDisplay = (props) => {
     return(
         <div className='player-window'>
             <h2 className='title-text'>{props.search}</h2>
@@ -43,13 +33,13 @@ const ImageDisplay = (props) => {
     )
 }
 
-const Mp4Display = (props) => {
+// Potential TODO: Check for HTML exploits in BS64 string
+const B64Display = (props) => {
+    let source = `data:image/png;base64, ` + props.src
     return(
         <div className='player-window'>
             <h2 className='title-text'>{props.search}</h2>
-            <video className='video-display' controls>
-                <source src={props.url} type="video/mp4"/>
-            </video>
+            <img src={source} alt={props.search} />
         </div>
     )
 }

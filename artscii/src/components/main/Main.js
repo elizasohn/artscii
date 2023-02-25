@@ -3,11 +3,16 @@ import Player from '../player/Player';
 import { useState } from 'react';
 import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
 
+import text from './fryb64DELETE' // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
+
 function Main() {
+    const [src, setSrc] = useState(text) // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
+    const [playerMode, setPlayerMode] = useState('rawImg') // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
+
     const [searchParam, setSearchParam] = useState('');
     const [displayText, setDisplayText] = useState('');
-    const [url, setUrl] = useState('https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif')
-    const [playerMode, setPlayerMode] = useState('image')
+    // const [src, setSrc] = useState('https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif')
+    // const [playerMode, setPlayerMode] = useState('url')
     const [imageUrl, setImageUrl] = useState('')
 
     const updateTitle = (param) => {
@@ -21,8 +26,8 @@ function Main() {
         e.preventDefault();
     }
 
-    const updatePlayerData = (new_url, new_search, new_playerMode) => {
-        setUrl(new_url);
+    const updatePlayerData = (new_src, new_search, new_playerMode) => {
+        setSrc(new_src);
         setSearchParam(new_search);
         setPlayerMode(new_playerMode);
     }
@@ -43,7 +48,7 @@ function Main() {
       <div className='main'>
           <h2>Searching for:</h2>
           <h2>{displayText}</h2>
-          <Player url={url} search={searchParam} playerMode={playerMode}/>
+          <Player src={src} search={searchParam} playerMode={playerMode}/>
           <p>Site under construction.</p>
   
           <div className='input-form'>
