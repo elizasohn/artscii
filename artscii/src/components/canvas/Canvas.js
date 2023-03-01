@@ -30,25 +30,30 @@ const Canvas = (props) => {
 
     // const fontRatio = 1;
 
-    const MAXIMUM_WIDTH = 80;
-    const MAXIMUM_HEIGHT = 80;
+    const MAXIMUM_WIDTH = 128;
+    const MAXIMUM_HEIGHT = 256;
 
     const clampDimensions = (width, height) => {
         // const rectifiedWidth = Math.floor(getFontRatio() * width);
         const rectifiedWidth = Math.floor(width);
 
-        if (height > MAXIMUM_HEIGHT) {
-            // const reducedWidth = Math.floor(rectifiedWidth * MAXIMUM_HEIGHT / height);
+        // if (height > MAXIMUM_HEIGHT) {
+        //     // const reducedWidth = Math.floor(rectifiedWidth * MAXIMUM_HEIGHT / height);
+        //     const reducedWidth = Math.floor(width * MAXIMUM_HEIGHT / height);
+        //     return [reducedWidth, MAXIMUM_HEIGHT];
+        // }
+
+        // if (width > MAXIMUM_WIDTH) {
+        //     const reducedHeight = Math.floor(height * MAXIMUM_WIDTH / rectifiedWidth);
+        //     return [MAXIMUM_WIDTH, reducedHeight];
+        // }
             const reducedWidth = Math.floor(width * MAXIMUM_HEIGHT / height);
-            return [reducedWidth, MAXIMUM_HEIGHT];
-        }
+            const reducedHeight = Math.floor(height * MAXIMUM_WIDTH / width);
 
-        if (width > MAXIMUM_WIDTH) {
-            const reducedHeight = Math.floor(height * MAXIMUM_WIDTH / rectifiedWidth);
-            return [MAXIMUM_WIDTH, reducedHeight];
-        }
-
-        return [rectifiedWidth, height];
+        console.log('reducedWidth: ', reducedWidth);
+        console.log('reducedHeight: ', reducedHeight);
+        // return [rectifiedWidth, height];
+        return [reducedWidth, reducedHeight];
     };
 
     const toGrayScale = (r, g, b) => 0.21 * r + 0.72 * g + 0.07 * b;
@@ -78,7 +83,7 @@ const Canvas = (props) => {
     };
 
     const grayRamp =
-  "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,\"^`'. ";
+  "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,^`'.";
     const rampLength = grayRamp.length;
 
     // the grayScale value is an integer ranging from 0 (black) to 255 (white)
@@ -92,7 +97,8 @@ const Canvas = (props) => {
             let nextChars = getCharacterForGrayScale(grayScale);
 
             if ((index + 1) % width === 0) {
-            nextChars += "/n";
+            // nextChars += "/n";
+            nextChars += '  ';
             }
 
             return asciiImage + nextChars;
