@@ -8,8 +8,10 @@ const Canvas = (props) => {
     const image = new Image();
     image.src = testBlob;
     //image.src = props.blob; 
-    let width = image.width;
-    let height = image.height;
+    // let width = image.width;
+    // let height = image.height;
+    let width = 256;
+    let height = 256;
     const [imageLoaded, setImageLoaded] = useState(false);
     const [converting, setConverting] = useState(false);
 
