@@ -2,6 +2,10 @@ import React from 'react';
 import './Player.css'
 import { validatePlayerProps } from './validatePlayerProps';
 
+// Player component to display URL, base64 encoded PNG and ASCII art to the app
+// props: 
+//  (string) src: url to image, base64 blob or ASCII
+//  (string) playerMode: either url, rawImg or ascii
 const Player = (props) => {
     try {
         validatePlayerProps(props)
@@ -14,11 +18,15 @@ const Player = (props) => {
                 return(
                     <B64Display src={props.src} search={props.search}/>
                 );
+            case 'ascii':
+                return(
+                    <h1>Still waiting on the ascii component</h1>
+                )
             default:
-                throw new Error('Invalid Player Type');
+                throw new Error('Unexpected playerMode error');
         }
     } catch(err) {
-        console.error("Player: " + err);
+        console.error("Player Error: " + err);
         return(<ErrorStateDisplay/>)
     }
 }
@@ -33,7 +41,6 @@ const UrlDisplay = (props) => {
     )
 }
 
-// Potential TODO: Check for HTML exploits in BS64 string
 const B64Display = (props) => {
     let source = `data:image/png;base64, ` + props.src
     return(

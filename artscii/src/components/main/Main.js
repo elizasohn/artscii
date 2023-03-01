@@ -6,13 +6,13 @@ import { getStableDiffusionImageBySearchText } from '../../services/stableDiffus
 import text from './fryb64DELETE' // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
 
 function Main() {
-    const [src, setSrc] = useState(text) // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
-    const [playerMode, setPlayerMode] = useState('rawImg') // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
+    // const [src, setSrc] = useState(text) // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
+    // const [playerMode, setPlayerMode] = useState('rawImg') // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
 
     const [searchParam, setSearchParam] = useState('');
     const [displayText, setDisplayText] = useState('');
-    // const [src, setSrc] = useState('https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif')
-    // const [playerMode, setPlayerMode] = useState('url')
+    const [src, setSrc] = useState('https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif')
+    const [playerMode, setPlayerMode] = useState('url')
     const [imageUrl, setImageUrl] = useState('')
 
     const updateTitle = (param) => {
