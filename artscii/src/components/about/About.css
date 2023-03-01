@@ -1,0 +1,28 @@
+.about-container {
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+}
+
+.about-header {
+    text-align: center;
+    font-family: cursive;
+    margin-bottom: 50px;
+}
+
+.about-content {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 50px;
+}
+
+.about-content p:first-of-type::first-letter {
+    font-size: 1.5em;
+    font-family:cursive;
+    margin-right: 3px;
+}
+
+#root > div > div > div.about-content > p:nth-child(2) > a {
+    margin-left: 5px;
+}
