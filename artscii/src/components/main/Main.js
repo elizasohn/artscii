@@ -1,4 +1,5 @@
 import './Main.css';
+import loading_gif from '../../assets/loading.gif';
 import Player from '../player/Player';
 import { useState } from 'react';
 import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
@@ -47,7 +48,7 @@ function Main() {
           <h2>Searching for:</h2>
           <h2>{displayText}</h2>
           {loading ? (
-            <Player url='https://media.giphy.com/media/KKCuBooszlPG0/giphy.gif' playerMode={playerMode} />
+            <Player url={loading_gif} playerMode={playerMode} />
           ) : (
             <Player url={imageUrl} search={searchParam} playerMode={playerMode}/>
           )}
