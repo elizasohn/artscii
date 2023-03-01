@@ -34,10 +34,11 @@ function Main() {
             .then(imageUrl => {
                 console.log(`Image URL received in UI - ${imageUrl}`)
                 setImageUrl(imageUrl)
-                setLoading(false);
             })
             .catch(err => {
                 console.log("error encountered = " + err);
+            })
+            .finally(() => {
                 setLoading(false);
             });
     }
