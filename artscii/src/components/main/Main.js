@@ -1,5 +1,5 @@
 import './Main.css';
-import Player from '../player/Player';
+import Display from '../display/Display';
 import { useState } from 'react';
 import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
 
@@ -7,12 +7,12 @@ import text from './fryb64DELETE' // remove this!! remove this!! remove this!! r
 
 function Main() {
     // const [src, setSrc] = useState(text) // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
-    // const [playerMode, setPlayerMode] = useState('rawImg') // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
+    // const [displayMode, setdisplayMode] = useState('rawImg') // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
 
     const [searchParam, setSearchParam] = useState('');
     const [displayText, setDisplayText] = useState('');
     const [src, setSrc] = useState('https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif')
-    const [playerMode, setPlayerMode] = useState('url')
+    const [displayMode, setDisplayMode] = useState('url')
     const [imageUrl, setImageUrl] = useState('')
 
     const updateTitle = (param) => {
@@ -26,10 +26,10 @@ function Main() {
         e.preventDefault();
     }
 
-    const updatePlayerData = (new_src, new_search, new_playerMode) => {
+    const updateDisplayData = (new_src, new_search, new_displayMode) => {
         setSrc(new_src);
         setSearchParam(new_search);
-        setPlayerMode(new_playerMode);
+        setDisplayMode(new_displayMode);
     }
 
     const setApiImage = (searchParam) => {
@@ -48,7 +48,7 @@ function Main() {
       <div className='main'>
           <h2>Searching for:</h2>
           <h2>{displayText}</h2>
-          <Player src={src} search={searchParam} playerMode={playerMode}/>
+          <Display src={src} search={searchParam} displayMode={displayMode}/>
           <p>Site under construction.</p>
   
           <div className='input-form'>
