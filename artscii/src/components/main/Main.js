@@ -1,5 +1,6 @@
 import './Main.css';
 import DisplayManager from '../displayManager/DisplayManager';
+import DisplayManager from '../displayManager/DisplayManager';
 import loading_gif from '../../assets/loading.gif';
 import home_gif from '../../assets/home.gif'
 import { useState, useRef } from 'react';
