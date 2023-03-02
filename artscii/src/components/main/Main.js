@@ -1,5 +1,6 @@
 import './Main.css';
-import Display from '../display/Display';
+import DisplayManager from '../displayManager/DisplayManager';
+import loading_gif from '../../assets/loading.gif';
 import { useState } from 'react';
 import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
 
@@ -13,7 +14,7 @@ function Main() {
     const [displayText, setDisplayText] = useState('');
     const [src, setSrc] = useState('https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif')
     const [displayMode, setDisplayMode] = useState('url')
-    const [imageUrl, setImageUrl] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const updateTitle = (param) => {
         setDisplayText(param)
@@ -23,10 +24,11 @@ function Main() {
     const handleSubmit = (e) => {
         updateTitle(searchParam)
         setApiImage(searchParam);
+        setLoading(true);
         e.preventDefault();
     }
 
-    const updateDisplayData = (new_src, new_search, new_displayMode) => {
+    const updateDisplayManagerData = (new_src, new_search, new_displayMode) => {
         setSrc(new_src);
         setSearchParam(new_search);
         setDisplayMode(new_displayMode);
@@ -36,10 +38,14 @@ function Main() {
         getStableDiffusionImageBySearchText(searchParam)
             .then(imageUrl => {
                 console.log(`Image URL received in UI - ${imageUrl}`)
-                setImageUrl(imageUrl)
+                setSrc(imageUrl)
+                setDisplayMode('url')
             })
             .catch(err => {
                 console.log("error encountered = " + err);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }
 
@@ -48,7 +54,11 @@ function Main() {
       <div className='main'>
           <h2>Searching for:</h2>
           <h2>{displayText}</h2>
-          <Display src={src} search={searchParam} displayMode={displayMode}/>
+          {loading ? (
+            <DisplayManager src={loading_gif} search={searchParam} displayMode={displayMode}/>
+          ) : (
+            <DisplayManager src={src} search={searchParam} displayMode={displayMode}/>
+          )}
           <p>Site under construction.</p>
   
           <div className='input-form'>
