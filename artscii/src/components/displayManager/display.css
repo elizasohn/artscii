@@ -1,6 +1,6 @@
 :root {  
-    --content-width: 480px;
-    --content-height: 360px;
+    --content-width: 512px;
+    --content-height: 512px;
 }
 
 .player-window {
@@ -11,13 +11,13 @@
 }
 
 .image-display {
-    width: var(--content-width);
-    height: var(--content-height);
+    max-width: var(--content-width);
+    max-height: var(--content-height);
 }
 
 .video-display {
-    width: var(--content-width);
-    height: var(--content-height);
+    max-width: var(--content-width);
+    max-height: var(--content-height);
 }
 
 .title-text {

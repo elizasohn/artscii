@@ -5,12 +5,7 @@ import home_gif from '../../assets/home.gif'
 import { useState } from 'react';
 import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
 
-import text from './fryb64DELETE' // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
-
 function Main() {
-    // const [src, setSrc] = useState(text) // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
-    // const [displayMode, setDisplayMode] = useState('image') // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
-
     const [searchParam, setSearchParam] = useState('');
     const [displayText, setDisplayText] = useState('');
     const [src, setSrc] = useState(home_gif)
