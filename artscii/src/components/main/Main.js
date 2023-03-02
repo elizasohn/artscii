@@ -1,64 +1,103 @@
 import './Main.css';
-// import Player from '../player/Player';
-import Input from '../input/Input';
-import Result from '../result/Result';
-import { useState } from 'react';
+import DisplayManager from '../displayManager/DisplayManager';
+import loading_gif from '../../assets/loading.gif';
+import home_gif from '../../assets/home.gif'
+import { useState, useRef } from 'react';
 import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
+import convertToGrayScales from '../../services/convertToGrayScales';
+import drawAscii from '../../services/drawAscii';
 
 function Main() {
     const [searchParam, setSearchParam] = useState('');
-	const [displayText, setDisplayText] = useState('');
-	const [url, setUrl] = useState('https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif');
-	const [playerMode, setPlayerMode] = useState('image');
-    const [displayMode, setDisplayMode] = useState('ascii');
-	const [blob, setBlob] = useState('')
+    const [displayText, setDisplayText] = useState('');
+    const [src, setSrc] = useState(home_gif);
+    const [displayMode, setDisplayMode] = useState('image')
+    const [loading, setLoading] = useState(false)
+	const [preData, setPreData] = useState('');
 
-	const updateTitle = (param) => {
-		setDisplayText(param)
-		setSearchParam('')
-	};
+    const updateTitle = (param) => {
+        setDisplayText(param)
+        setSearchParam('')
+    }
+    const handleSubmit = (e) => {
+        updateTitle(searchParam)
+        setApiImage(searchParam);
+        setLoading(true);
+        e.preventDefault();
+    }
 
-	const handleSubmit = (e) => {
-		updateTitle(searchParam)
-		setDisplayMode('image');
-		e.preventDefault();
-	};
-	
-	const updatePlayerData = (new_url, new_search, new_playerMode) => {
-		setUrl(new_url);
-		setSearchParam(new_search);
-		setPlayerMode(new_playerMode);
-	};
+	const canvas = useRef();
+    let width = 256;
+    let height = 128;
+	let image;
 
-	let display;
-	if (displayMode === 'input') {
-		display = 
-			<Input 
-				handleSubmit={handleSubmit} 
-				searchParam={searchParam} 
-				setSearchParam={setSearchParam} 
-			/>
-	} else {
-		display = 
-			<div className='response'>
-				<h2>Searching for:</h2>
-				<h2>{displayText}</h2>
-				<Result 
-					displayMode={displayMode} 
-					setDisplayMode={setDisplayMode} 
-					url={url} 
-					search={searchParam} 
-					playerMode={playerMode}
-				/>
-			</div>
+	const loadImageToCanvas = (imageUrl) => {
+		image = new Image();
+		image.src = imageUrl;
+        const context = canvas.current.getContext('2d');
+        image.onload = () => {
+            canvas.width = width;
+            canvas.height = height;
+            context.drawImage(image, 0, 0, width, height);
+        };
 	}
 
-	console.log('display mode: ', displayMode);
+    const setApiImage = (searchParam) => {
+        getStableDiffusionImageBySearchText(searchParam)
+            .then(imageUrl => {
+                console.log(`Image URL received in UI - ${imageUrl}`)
+                setDisplayMode('image')
+                setSrc(imageUrl)
+				loadImageToCanvas(imageUrl);
+            })
+            .catch(err => {
+                console.log("error encountered = " + err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }
 
-    return (
-        <div className='main'>
-            {display}
-        </div> 
-    );
+    const asciify = () => {
+		const context = canvas.current.getContext('2d');
+        const imageData = context.getImageData(0, 0, width, height);
+        const grayScales = convertToGrayScales(context, imageData);
+        const pre = drawAscii(grayScales, width);   
+        setPreData(pre); 
+        setDisplayMode('ascii');
+    }
+
+  return (
+      <div className='main'>	
+          <h2>Searching for:</h2>
+          <h2>{displayText}</h2>
+          {loading ? (
+            <DisplayManager src={loading_gif} search={searchParam} displayMode={displayMode}/>
+          ) : (
+            <DisplayManager src={src} search={searchParam} displayMode={displayMode} asciify={asciify} preData={preData}/>
+          )}
+          <p>Site under construction.</p>
+
+          <div className='input-form'>
+              <form onSubmit={e => handleSubmit(e)}>
+                  <input 
+                      className='search-input'
+                      type='text'
+                      value={searchParam}
+                      placeholder="Enter a search term"
+                      onChange={e => setSearchParam(e.target.value)}
+                  />
+                  <input 
+                      type='submit'
+                      value='Submit'
+                  />
+              </form>
+          </div>
+		  <canvas 
+				className='canvas'
+			  	ref={canvas}
+		  />
+      	</div>
+		);
 };
 export default Main;
