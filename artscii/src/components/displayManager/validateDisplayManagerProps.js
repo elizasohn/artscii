@@ -13,8 +13,4 @@ export function validateDisplayManagerProps (props) {
     if (!props.src) {
         throw new Error('No src sent to component!')
     }
-
-    if (props.displayMode === "url") {
-        new URL(props.src)     // will throw a TypeError if the string is not URL formatted
-    }
 }
