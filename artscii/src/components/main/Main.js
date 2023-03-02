@@ -3,6 +3,7 @@ import './Main.css';
 import Input from '../input/Input';
 import Result from '../result/Result';
 import { useState } from 'react';
+import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
 
 function Main() {
     const [searchParam, setSearchParam] = useState('');
@@ -60,5 +61,4 @@ function Main() {
         </div> 
     );
 };
-
 export default Main;
