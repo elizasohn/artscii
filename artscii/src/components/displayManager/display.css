@@ -11,13 +11,13 @@
 }
 
 .image-display {
-    max-width: var(--content-width);
-    max-height: var(--content-height);
+    width: var(--content-width);
+    height: var(--content-height);
 }
 
 .video-display {
-    max-width: var(--content-width);
-    max-height: var(--content-height);
+    width: var(--content-width);
+    height: var(--content-height);
 }
 
 .title-text {
