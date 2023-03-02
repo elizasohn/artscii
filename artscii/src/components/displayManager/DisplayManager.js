@@ -10,16 +10,10 @@ const DisplayManager = (props) => {
     try {
         validateDisplayManagerProps(props)
         switch(props.displayMode) {
-            case 'url':
+            case 'image':
                 return(
                     <div className='display-window'>
-                        <UrlDisplay url={props.src} search={props.search}/>
-                    </div>
-                );
-            case 'rawImg':
-                return(
-                    <div className='display-window'>
-                        <B64Display src={props.src} search={props.search}/>
+                        <ImageDisplay src={props.src} search={props.search}/>
                     </div>
                 );
             case 'ascii':
@@ -41,22 +35,11 @@ const DisplayManager = (props) => {
     }
 }
 
-// Individual display components for different media
-const UrlDisplay = (props) => {
+const ImageDisplay = (props) => {
     return(
-        <div className='url-display'>
+        <div className='player-window'>
             <h2 className='title-text'>{props.search}</h2>
-            <img src={props.url} alt={props.search} className='image-display'/>
-        </div>
-    )
-}
-
-const B64Display = (props) => {
-    let source = `data:image/png;base64, ` + props.src
-    return(
-        <div className='b64-display'>
-            <h2 className='title-text'>{props.search}</h2>
-            <img src={source} alt={props.search} />
+            <img src={props.src} alt={props.search} className="image-display"/>
         </div>
     )
 }

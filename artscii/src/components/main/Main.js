@@ -1,6 +1,7 @@
 import './Main.css';
 import DisplayManager from '../displayManager/DisplayManager';
 import loading_gif from '../../assets/loading.gif';
+import home_gif from '../../assets/home.gif'
 import { useState } from 'react';
 import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
 
@@ -8,12 +9,12 @@ import text from './fryb64DELETE' // remove this!! remove this!! remove this!! r
 
 function Main() {
     // const [src, setSrc] = useState(text) // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
-    // const [displayMode, setdisplayMode] = useState('rawImg') // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
+    // const [displayMode, setDisplayMode] = useState('image') // remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! remove this!! 
 
     const [searchParam, setSearchParam] = useState('');
     const [displayText, setDisplayText] = useState('');
-    const [src, setSrc] = useState('https://media.giphy.com/media/fVeAI9dyD5ssIFyOyM/giphy.gif')
-    const [displayMode, setDisplayMode] = useState('url')
+    const [src, setSrc] = useState(home_gif)
+    const [displayMode, setDisplayMode] = useState('image')
     const [loading, setLoading] = useState(false)
 
     const updateTitle = (param) => {
@@ -28,18 +29,12 @@ function Main() {
         e.preventDefault();
     }
 
-    const updateDisplayManagerData = (new_src, new_search, new_displayMode) => {
-        setSrc(new_src);
-        setSearchParam(new_search);
-        setDisplayMode(new_displayMode);
-    }
-
     const setApiImage = (searchParam) => {
         getStableDiffusionImageBySearchText(searchParam)
             .then(imageUrl => {
                 console.log(`Image URL received in UI - ${imageUrl}`)
+                setDisplayMode('image')
                 setSrc(imageUrl)
-                setDisplayMode('url')
             })
             .catch(err => {
                 console.log("error encountered = " + err);
