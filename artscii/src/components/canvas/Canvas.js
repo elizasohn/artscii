@@ -7,54 +7,21 @@ const Canvas = (props) => {
     const canvas = useRef();
     const image = new Image();
     image.src = testBlob;
-    //image.src = props.blob; 
-    // let width = image.width;
-    // let height = image.height;
     let width = 256;
     let height = 256;
     const [imageLoaded, setImageLoaded] = useState(false);
     const [converting, setConverting] = useState(false);
 
-
-    // const getFontRatio = () => {
-    //     const pre = document.createElement('pre');
-    //     pre.style.display = 'inline';
-    //     pre.textContent = ' ';
-
-    //     document.body.appendChild(pre);
-    //     const { width, height } = pre.getBoundingClientRect();
-    //     document.body.removeChild(pre);
-
-    //     console.log('width', width);
-
-    //     return height / width;
-    // };
-
-    // const fontRatio = 1;
-
     const MAXIMUM_WIDTH = 128;
     const MAXIMUM_HEIGHT = 256;
 
     const clampDimensions = (width, height) => {
-        // const rectifiedWidth = Math.floor(getFontRatio() * width);
-        const rectifiedWidth = Math.floor(width);
+        // const rectifiedWidth = Math.floor(width);
+        const reducedWidth = Math.floor(width * MAXIMUM_HEIGHT / height);
+        const reducedHeight = Math.floor(height * MAXIMUM_WIDTH / width);
 
-        // if (height > MAXIMUM_HEIGHT) {
-        //     // const reducedWidth = Math.floor(rectifiedWidth * MAXIMUM_HEIGHT / height);
-        //     const reducedWidth = Math.floor(width * MAXIMUM_HEIGHT / height);
-        //     return [reducedWidth, MAXIMUM_HEIGHT];
-        // }
-
-        // if (width > MAXIMUM_WIDTH) {
-        //     const reducedHeight = Math.floor(height * MAXIMUM_WIDTH / rectifiedWidth);
-        //     return [MAXIMUM_WIDTH, reducedHeight];
-        // }
-            const reducedWidth = Math.floor(width * MAXIMUM_HEIGHT / height);
-            const reducedHeight = Math.floor(height * MAXIMUM_WIDTH / width);
-
-        console.log('reducedWidth: ', reducedWidth);
-        console.log('reducedHeight: ', reducedHeight);
-        // return [rectifiedWidth, height];
+        // console.log('reducedWidth: ', reducedWidth);
+        // console.log('reducedHeight: ', reducedHeight);
         return [reducedWidth, reducedHeight];
     };
 
@@ -81,7 +48,6 @@ const Canvas = (props) => {
         context.putImageData(imageData, 0, 0);
 
         return grayScales;
-        // drawAscii(grayScales);
     };
 
     const grayRamp =
@@ -99,8 +65,7 @@ const Canvas = (props) => {
             let nextChars = getCharacterForGrayScale(grayScale);
 
             if ((index + 1) % width === 0) {
-            // nextChars += "/n";
-            nextChars += '  ';
+                nextChars += '  ';
             }
 
             return asciiImage + nextChars;
@@ -123,9 +88,7 @@ const Canvas = (props) => {
             [width, height] = clampDimensions(image.width, image.height);
             canvas.width = width;
             canvas.height = height;
-
             context.drawImage(image, 0, 0, width, height);
-            // context.drawImage(image, 0, 0, 512, 512);
         };
     }, [imageLoaded]);
     
@@ -135,9 +98,7 @@ const Canvas = (props) => {
         const imageData = context.getImageData(0, 0, width, height);
         console.log('image data', imageData);
         const grayScales = convertToGrayScales(context);
-        drawAscii(grayScales, width);
-        // drawAscii();
-        
+        drawAscii(grayScales, width);        
     };
     
 
