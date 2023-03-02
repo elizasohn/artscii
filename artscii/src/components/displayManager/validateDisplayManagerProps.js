@@ -1,14 +1,3 @@
-// Function to validate props passed to the Display componeont. Throws errors for Display to catch
-
-export function validateDisplayManagerProps (props) {
-    let validModes = ['image', 'ascii']
-    if (!props.displayMode){
-        throw new Error('No displayMode sent to component!')
-    }
-
-    if (!validModes.includes(props.displayMode)) {
-        throw new Error('Invalid Display Type');
-    }
 // Function to validate props passed to the Player componeont. Throws errors for Player to catch
 
 export function validateDisplayManagerProps (props) {
