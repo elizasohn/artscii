@@ -1,18 +1,18 @@
-import { validateDisplayManagerProps } from './validateDisplayManagerProps';
-import { validModes } from './validateDisplayManagerProps';
-import { DisplayManager } from './DisplayManager';
+import { validateDisplayManagerProps, validModes } from '../components/displayManager/validateDisplayManagerProps';
+import { DisplayManager } from '../components/displayManager/DisplayManager';
 import { expect, jest } from '@jest/globals';
 const fs = require('fs');
 const path = require("path");
 
-const testImg = fs.readFileSync(path.resolve(__dirname, '../../assets/fry.png'));
+const testImg = fs.readFileSync(path.resolve(__dirname, '../assets/fry.png'));
 let testProps;
 
 beforeEach(() => {
     testProps = {displayMode: 'ascii', src: testImg}
 })
 
-// Testing the validateDisplayManagerProps function
+
+// Tests
 it('should accept valid mode and src props', () => {
     validModes.forEach(mode => {
         testProps.displayMode = mode;
@@ -22,14 +22,14 @@ it('should accept valid mode and src props', () => {
     });
 });
 
-it('should throw errors for invalid mode props', () => {
+it('should throw error for invalid props.displayMode', () => {
     testProps.displayMode = 'drama-bomb';
     expect(() => {
         validateDisplayManagerProps(testProps)
     }).toThrowError('Invalid Display Type');
 })
 
-it('should throw errors for empty src props', () => {
+it('should throw error for empty props.src value', () => {
     testProps.src = '';
     expect(() => {
         validateDisplayManagerProps(testProps)
