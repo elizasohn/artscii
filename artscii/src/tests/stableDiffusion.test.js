@@ -1,6 +1,6 @@
 import { expect, jest } from '@jest/globals';
 import home_gif from '../assets/home.gif'
-const { getStableDiffusionImageBySearchText } = require('./stableDiffusionService')
+const { getStableDiffusionImageBySearchText } = require('../services/stableDiffusionService')
 const axios = require('axios')
 const fs = require('fs')
 const path = require("path");
@@ -12,7 +12,7 @@ async function readFileAsBinary(filename) {
 }
 
 it('should return stable diffusion image', async() => {
-    const mockBinaryData = await readFileAsBinary('./check-mark.png');
+    const mockBinaryData = await readFileAsBinary('../assets/check-mark.png');
     expect(mockBinaryData).not.toBeNull();
     const base64MockImage = Buffer.from(mockBinaryData, 'binary').toString('base64')
     axios.request.mockResolvedValue({
@@ -35,7 +35,7 @@ it('should return default image if stable diffusion returns undefined', async() 
 });
 
 it('should return image based on default text if search string not provided', async() => {
-    const mockBinaryData = await readFileAsBinary('./check-mark.png');
+    const mockBinaryData = await readFileAsBinary('../assets/check-mark.png');
     expect(mockBinaryData).not.toBeNull();
     const base64MockImage = Buffer.from(mockBinaryData, 'binary').toString('base64')
     axios.request.mockResolvedValue({
