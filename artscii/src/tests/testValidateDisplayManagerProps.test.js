@@ -1,5 +1,4 @@
 import { validateDisplayManagerProps, validModes } from '../components/displayManager/validateDisplayManagerProps';
-import { DisplayManager } from '../components/displayManager/DisplayManager';
 import { expect, jest } from '@jest/globals';
 const fs = require('fs');
 const path = require("path");
