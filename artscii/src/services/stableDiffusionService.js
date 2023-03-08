@@ -2,6 +2,10 @@ import axios from "axios";
 import home_gif from '../assets/home.gif'
 let Buffer = require('buffer').Buffer
 
+// default width and height of the image to keep API billing cost in check
+const DEFAULT_IMAGE_WIDTH = 512
+const DEFAULT_IMAGE_HEIGHT = 512
+
 const STABLE_DIFFUSION_API_KEY = process.env.REACT_APP_STABLE_DIFFUSION_API_KEY;
 const DEFAULT_IMAGE_TO_SHOW = home_gif;
 const DEZGO_HOST_URL = `https://dezgo.p.rapidapi.com/text2image`;
@@ -13,7 +17,9 @@ export async function getStableDiffusionImageBySearchText(searchText = "",
     upscale = 1,
     steps = 30,
     model = 'stablediffusion_1_5',
-    guidance = 8) {
+    guidance = 8,
+    width = DEFAULT_IMAGE_WIDTH,
+    height = DEFAULT_IMAGE_HEIGHT) {
     if (searchText === "") {
         searchText = DEFAULT_SEARCH_TEXT;
     }
@@ -24,6 +30,8 @@ export async function getStableDiffusionImageBySearchText(searchText = "",
     encodedParams.append("prompt", searchText);
     encodedParams.append("model", model);
     encodedParams.append("guidance", guidance);
+    encodedParams.append("width", width);
+    encodedParams.append("height", height);
     // getting the response from Dezgo API
     const imageBase64 = await callStableDiffusionWithPrompt(encodedParams);
     if (imageBase64 === undefined) {
