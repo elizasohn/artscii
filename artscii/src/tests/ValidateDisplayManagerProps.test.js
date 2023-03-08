@@ -1,7 +1,7 @@
 import { validateDisplayManagerProps, validModes } from '../components/displayManager/validateDisplayManagerProps';
 import { expect } from '@jest/globals';
-const fs = require('fs');
 
+// test objects
 let testProps;
 
 beforeEach(() => {
@@ -24,6 +24,20 @@ it('should throw error for invalid props.displayMode', () => {
     expect(() => {
         validateDisplayManagerProps(testProps)
     }).toThrowError('Invalid Display Type');
+})
+
+it('should throw error for empty props.displayMode', () => {
+    testProps.displayMode = '';
+    expect(() => {
+        validateDisplayManagerProps(testProps)
+    }).toThrowError('No displayMode sent to component!');
+})
+
+it('should throw error for missing props.displayMode', () => {
+    let testProps2 = {}
+    expect(() => {
+        validateDisplayManagerProps(testProps2)
+    }).toThrowError('No displayMode sent to component!');
 })
 
 it('should throw error for empty props.src value', () => {
