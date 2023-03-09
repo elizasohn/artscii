@@ -10,7 +10,7 @@ beforeEach(() => {
 })
 
 
-// Tests
+// Tests begin...
 it('should accept valid mode and src props', () => {
     validModes.forEach(mode => {
         testProps.displayMode = mode;
