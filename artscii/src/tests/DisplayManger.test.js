@@ -4,6 +4,7 @@ import { validateDisplayManagerProps } from '../components/displayManager/valida
 
 // Mocking validateDisplayManagerProps as that is not the SUT
 jest.mock('../components/displayManager/validateDisplayManagerProps', () => ({ validateDisplayManagerProps: jest.fn() }))
+console.error = jest.fn()   // silence console.error() for testing
 let testDisplayManager;
 
 

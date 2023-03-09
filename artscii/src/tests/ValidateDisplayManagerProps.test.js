@@ -3,6 +3,7 @@ import { expect } from '@jest/globals';
 
 // test objects
 let testProps;
+console.error = jest.fn()   // silence console.error() for testing
 
 beforeEach(() => {
     testProps = {displayMode: 'ascii', src: 'abcdefg'}
