@@ -18,16 +18,16 @@ test("renders DisplayManager component", () => {
     render(
         testDisplayManager
     );
-    const appElement = document.querySelector(".display-window");
-    expect(appElement).toBeInTheDocument();
+    const displayManagerElement = document.querySelector(".display-window");
+    expect(displayManagerElement).toBeInTheDocument();
 });
 
 test("renders ImageDisplay component", () => {
     render(
         testDisplayManager
     );
-    const appElement = document.querySelector("#image-display-window");
-    expect(appElement).toBeInTheDocument();
+    const imageDisplayElement = document.querySelector("#image-display-window");
+    expect(imageDisplayElement).toBeInTheDocument();
 });
 
 test("renders AsciiDisplay component", () => {
@@ -35,8 +35,8 @@ test("renders AsciiDisplay component", () => {
     render(
         testDisplayManager
     );
-    const appElement = document.querySelector("#ascii-display-window");
-    expect(appElement).toBeInTheDocument();
+    const asciiDisplayElement = document.querySelector("#ascii-display-window");
+    expect(asciiDisplayElement).toBeInTheDocument();
 });
 
 test("renders ErrorDisplay component", () => {
@@ -44,6 +44,6 @@ test("renders ErrorDisplay component", () => {
     render(
         testDisplayManager
     );
-    const appElement = document.querySelector("#error-display-window");
-    expect(appElement).toBeInTheDocument();
+    const errorDisplayElement = document.querySelector("#error-display-window");
+    expect(errorDisplayElement).toBeInTheDocument();
 });
