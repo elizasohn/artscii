@@ -22,7 +22,7 @@ const DisplayManager = (props) => {
                 throw new Error('Unexpected displayMode error');
         }
     } catch(err) {
-        console.error("display Error: " + err);
+        console.error("DisplayManager: " + err);
         return(
             <div className='display-window'>
                 <ErrorStateDisplay/>
