@@ -40,7 +40,7 @@ test("renders AsciiDisplay component", () => {
 });
 
 test("renders ErrorDisplay component", () => {
-    testDisplayManager = <DisplayManager/>
+    testDisplayManager = <DisplayManager displayMode='this-is-a-phony-mode'/>
     render(
         testDisplayManager
     );
