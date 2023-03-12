@@ -2,7 +2,7 @@
     "name": "artscii",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://elizasohn.github.io/artscii",
+    "homepage": "https://www.artscii.elizasohn.com",
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
