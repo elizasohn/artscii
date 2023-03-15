@@ -4,11 +4,11 @@ import './SearchTextTitle.css';
 const SearchTextTitle = ({displayText}) => {
     return displayText ? (
             <div className='search-text-container'>
-                <h2>Searching for:</h2>
-                <h2>{displayText}</h2>
+                <h2 id='search-text-label'>Searching for:</h2>
+                <h2 id='search-text'>{displayText}</h2>
             </div>
         ) : (
-            <div className='search-empty'></div>
+            <div data-testid='search-empty' className='search-empty'></div>
         )
 }
 
