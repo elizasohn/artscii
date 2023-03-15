@@ -1,4 +1,5 @@
 import './Main.css';
+import SearchTextTitle from '../searchTextTitle/SearchTextTitle';
 import DisplayManager from '../displayManager/DisplayManager';
 import AsciifyButton from '../asciifyButton/AsciifyButton';
 import loading_gif from '../../assets/loading.gif';
@@ -73,16 +74,7 @@ function Main() {
 
   return (
       <div className='main'>	
-          {displayText !== '' ? (
-            <>
-                <h2>Searching for:</h2>
-                <h2>{displayText}</h2>
-            </>
-          ) : (
-            <>
-                <h2> </h2>
-            </>
-          )}
+          <SearchTextTitle displayText={displayText}/>
           {loading ? (
             <DisplayManager src={loading_gif} search={searchParam} displayMode={displayMode}/>
           ) : (
