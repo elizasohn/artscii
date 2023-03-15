@@ -14,6 +14,7 @@ function Main() {
     const [displayMode, setDisplayMode] = useState('image')
     const [loading, setLoading] = useState(false)
 	const [preData, setPreData] = useState('');
+    const [searchClicked, setSearchClicked] = useState(false);
 
     const updateTitle = (param) => {
         setDisplayText(param)
@@ -55,6 +56,7 @@ function Main() {
             })
             .finally(() => {
                 setLoading(false);
+                setSearchClicked(true);
             });
     }
 
@@ -65,19 +67,29 @@ function Main() {
         const pre = drawAscii(grayScales, width);   
         setPreData(pre); 
         setDisplayMode('ascii');
+        setSearchClicked(false);
     }
 
   return (
       <div className='main'>	
-          <h2>Searching for:</h2>
-          <h2>{displayText}</h2>
+          {displayText !== '' && (
+            <>
+                <h2>Searching for:</h2>
+                <h2>{displayText}</h2>
+            </>
+          )}
           {loading ? (
             <DisplayManager src={loading_gif} search={searchParam} displayMode={displayMode}/>
           ) : (
-            <DisplayManager src={src} search={searchParam} displayMode={displayMode} asciify={asciify} preData={preData}/>
+            <DisplayManager src={src} search={searchParam} displayMode={displayMode} preData={preData}/>
           )}
           <p>Site under construction.</p>
 
+          {searchClicked && (
+            <div className='ascii-button-container'>
+                <button className='ascii-button' onClick={asciify}>asciify</button>
+            </div>
+          )}
           <div className='input-form'>
               <form onSubmit={e => handleSubmit(e)}>
                   <input 

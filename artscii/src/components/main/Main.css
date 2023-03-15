@@ -18,3 +18,14 @@ h2 {
     position: absolute;
     top: -500px;
 }
+
+.ascii-button {
+    margin: 1em;
+}
+
+.ascii-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
