@@ -1,5 +1,6 @@
 import './Main.css';
 import DisplayManager from '../displayManager/DisplayManager';
+import AsciifyButton from '../asciifyButton/AsciifyButton';
 import loading_gif from '../../assets/loading.gif';
 import home_gif from '../../assets/home.gif'
 import { useState, useRef } from 'react';
@@ -14,7 +15,7 @@ function Main() {
     const [displayMode, setDisplayMode] = useState('image')
     const [loading, setLoading] = useState(false)
 	const [preData, setPreData] = useState('');
-    const [searchClicked, setSearchClicked] = useState(false);
+    const [searchActive, setSearchActive] = useState(false);
 
     const updateTitle = (param) => {
         setDisplayText(param)
@@ -56,7 +57,7 @@ function Main() {
             })
             .finally(() => {
                 setLoading(false);
-                setSearchClicked(true);
+                setSearchActive(true);
             });
     }
 
@@ -67,15 +68,19 @@ function Main() {
         const pre = drawAscii(grayScales, width);   
         setPreData(pre); 
         setDisplayMode('ascii');
-        setSearchClicked(false);
+        setSearchActive(false);
     }
 
   return (
       <div className='main'>	
-          {displayText !== '' && (
+          {displayText !== '' ? (
             <>
                 <h2>Searching for:</h2>
                 <h2>{displayText}</h2>
+            </>
+          ) : (
+            <>
+                <h2> </h2>
             </>
           )}
           {loading ? (
@@ -85,11 +90,7 @@ function Main() {
           )}
           <p>Site under construction.</p>
 
-          {searchClicked && (
-            <div className='ascii-button-container'>
-                <button className='ascii-button' onClick={asciify}>asciify</button>
-            </div>
-          )}
+          <AsciifyButton searchActive={searchActive} asciify={asciify}/>
           <div className='input-form'>
               <form onSubmit={e => handleSubmit(e)}>
                   <input 
