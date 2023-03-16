@@ -14,7 +14,6 @@ function Main() {
     const [displayText, setDisplayText] = useState('');
     const [src, setSrc] = useState(home_gif);
     const [displayMode, setDisplayMode] = useState('image')
-    const [loading, setLoading] = useState(false)
 	const [preData, setPreData] = useState('');
     const [searchActive, setSearchActive] = useState(false);
 
@@ -24,9 +23,10 @@ function Main() {
     }
     const handleSubmit = (e) => {
         setDisplayMode('loading');
+        setSearchActive(false);
+        setSrc(loading_gif);
         updateTitle(searchParam)
         setApiImage(searchParam);
-        setLoading(true);
         e.preventDefault();
     }
 
@@ -58,7 +58,6 @@ function Main() {
                 console.log("error encountered = " + err);
             })
             .finally(() => {
-                setLoading(false);
                 setSearchActive(true);
             });
     }
@@ -76,11 +75,7 @@ function Main() {
   return (
       <div className='main'>	
           <SearchTextTitle displayText={displayText}/>
-          {loading ? (
-            <DisplayManager src={loading_gif} search={searchParam} displayMode={displayMode}/>
-          ) : (
-            <DisplayManager src={src} search={searchParam} displayMode={displayMode} preData={preData}/>
-          )}
+          <DisplayManager src={src} search={searchParam} displayMode={displayMode} preData={preData}/>
           <p>Site under construction.</p>
 
           <AsciifyButton searchActive={searchActive} asciify={asciify}/>
