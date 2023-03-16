@@ -76,7 +76,6 @@ function Main() {
       <div className='main'>	
           <SearchTextTitle displayText={displayText}/>
           <DisplayManager src={src} search={searchParam} displayMode={displayMode} preData={preData}/>
-          <p>Site under construction.</p>
 
           <AsciifyButton searchActive={searchActive} asciify={asciify}/>
           <div className='input-form'>
