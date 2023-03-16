@@ -2,7 +2,7 @@ import './Main.css';
 import SearchTextTitle from '../searchTextTitle/SearchTextTitle';
 import DisplayManager from '../displayManager/DisplayManager';
 import AsciifyButton from '../asciifyButton/AsciifyButton';
-import loading_gif from '../../assets/loading.gif';
+import loading_gif from '../../assets/first-loading.gif';
 import home_gif from '../../assets/home.gif'
 import { useState, useRef } from 'react';
 import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
@@ -23,7 +23,7 @@ function Main() {
         setSearchParam('')
     }
     const handleSubmit = (e) => {
-        setDisplayMode('image');
+        setDisplayMode('loading');
         updateTitle(searchParam)
         setApiImage(searchParam);
         setLoading(true);

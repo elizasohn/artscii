@@ -18,6 +18,12 @@ const DisplayManager = (props) => {
                         <AsciiDisplay src={props.src} search={props.search} preData={props.preData} />
                     </div>
                 )
+            case 'loading':
+                return(
+                    <div className='display-window'>
+                        <LoadingDisplay src={props.src} size={props.size}/>
+                    </div>
+                )
             default:
                 throw new Error('Unexpected displayMode error');
         }
@@ -52,6 +58,16 @@ const ErrorStateDisplay = () => {
     return(
         <div className='player-window' id='error-display-window'>
             <h1>Something went wrong! Sorry about that</h1>
+        </div>
+    )
+}
+
+const LoadingDisplay = (props) => {
+    const size = props.size || 50;
+    console.log('within the LoadingDisplay component');
+    return(
+        <div className='player-window' id='loading-display-window'>
+            <img src={props.src} alt='loading' style={{width: size, height: size}} className='loading-display'/>
         </div>
     )
 }
