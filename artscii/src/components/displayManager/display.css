@@ -20,6 +20,13 @@
     height: var(--content-height);
 }
 
+.loading-display {
+    width: 200px;
+    height: 200px;
+    padding: 0px;
+    margin: 156px;
+}
+
 .title-text {
     display: none
 }
