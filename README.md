@@ -21,7 +21,7 @@ It was created for Portland State University's CS-554 "Software Engineering" cla
 
 ## Installation
 
-Note: You will need to sign up for a [Dezgo](https://rapidapi.com/dezgo/api/dezgo/details) API key in order to run this on your own machine.
+Note: You will need to sign up for a [Dezgo](https://rapidapi.com/dezgo/api/dezgo/pricing) API key in order to run this on your own machine.
 
 1. Clone or download this repo. `git clone https://github.com/elizasohn/artscii.git`
 2. Install the node modules by navigating to root and running `npm install`
@@ -33,17 +33,18 @@ Note: You will need to sign up for a [Dezgo](https://rapidapi.com/dezgo/api/dezg
 ## Usage
 
 [Try it out here!](https://artscii.elizasohn.com/)
-Simply enter a search term, wait for the resulting ai generated image and press "ascify" to see the glrious ascii results!
+Simply enter a search term, wait for the resulting ai generated image and press "ascify" to see the glorious ascii results!
 
 ## Technologies
 
-- [React](https://react.dev/). For our front-end web interface.
+- [React](https://react.dev/) and [JavaScript](https://www.javascript.com/). For front-end web interface.
+- [NodeJS](https://nodejs.org/en). For package management
 - [Dezgo](https://rapidapi.com/dezgo/api/dezgo/details). For AI Image generation.
-- [Jest](https://jestjs.io/). For our testing suite.
+- [Jest](https://jestjs.io/). For a testing suite.
 
 ## References
 
 - ASCII REFERENCE!!!!!!!!!!!!!!!!!!!!!!!!!!!
+- [React documentation](https://react.dev/reference/react)
 - [Dezgo API Documentation](https://rapidapi.com/dezgo/api/dezgo)
 - [Jest documentation](https://jestjs.io/docs/getting-started)
-- [React documentation](https://react.dev/reference/react)
