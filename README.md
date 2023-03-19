@@ -24,18 +24,26 @@ It was created for Portland State University's CS-554 "Software Engineering" cla
 Note: You will need to sign up for a [Dezgo](https://rapidapi.com/dezgo/api/dezgo/details) API key in order to run this on your own machine.
 
 1. Clone or download this repo. `git clone https://github.com/elizasohn/artscii.git`
-2. Install the node modules by navigating to root and running `npm install` 
+2. Install the node modules by navigating to root and running `npm install`
 3. Create a file named .env and place it in the artscii folder. `[path_to_repository]/artscii/.env`
 4. Create a variable for your Dezgo API key inside the .env file. `REACT_APP_STABLE_DIFFUSION_API_KEY = [your key here]`
 5. Change into the artscii directory `cd [path_to_repo]/artscii` and run the project `npm start`
+6. If it does not open automatically: with the application running, navigate to [localhost:3000](localhost:3000/) on a web browser like Chrome.
 
 ## Usage
 
 [Try it out here!](https://artscii.elizasohn.com/)
 Simply enter a search term, wait for the resulting ai generated image and press "ascify" to see the glrious ascii results!
 
-## Technologies and References
+## Technologies
 
-1. [React](https://react.dev/). For our front-end web interface.
-2. [Dezgo](https://rapidapi.com/dezgo/api/dezgo/details). For AI Image generation.
-3. ASCII REFERENCE
+- [React](https://react.dev/). For our front-end web interface.
+- [Dezgo](https://rapidapi.com/dezgo/api/dezgo/details). For AI Image generation.
+- [Jest](https://jestjs.io/). For our testing suite.
+
+## References
+
+- ASCII REFERENCE!!!!!!!!!!!!!!!!!!!!!!!!!!!
+- [Dezgo API Documentation](https://rapidapi.com/dezgo/api/dezgo)
+- [Jest documentation](https://jestjs.io/docs/getting-started)
+- [React documentation](https://react.dev/reference/react)
