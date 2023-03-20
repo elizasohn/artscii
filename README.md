@@ -37,14 +37,16 @@ Simply enter a search term, wait for the resulting ai generated image and press 
 
 ## Technologies
 
-- [React](https://react.dev/) and [JavaScript](https://www.javascript.com/). For front-end web interface.
-- [NodeJS](https://nodejs.org/en). For package management
-- [Dezgo](https://rapidapi.com/dezgo/api/dezgo/details). For AI Image generation.
-- [Jest](https://jestjs.io/). For a testing suite.
+- [React](https://react.dev/) and [JavaScript](https://www.javascript.com/)
+- [NodeJS](https://nodejs.org/en)
+- [Dezgo](https://rapidapi.com/dezgo/api/dezgo/details)
+- [Axios](https://axios-http.com/docs/intro)
+- [Jest](https://jestjs.io/)
 
 ## References
 
-- ASCII REFERENCE!!!!!!!!!!!!!!!!!!!!!!!!!!!
+- [Marmelab: "Convert An Image Into An ASCII Art Masterpiece With Pure JavaScript"](https://marmelab.com/blog/2018/02/20/convert-image-to-ascii-art-masterpiece.html)
+- [idevelop/ascii-camera](https://github.com/idevelop/ascii-camera)
 - [React documentation](https://react.dev/reference/react)
 - [Dezgo API Documentation](https://rapidapi.com/dezgo/api/dezgo)
 - [Jest documentation](https://jestjs.io/docs/getting-started)
