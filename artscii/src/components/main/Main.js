@@ -50,7 +50,6 @@ function Main() {
     const setApiImage = (searchParam) => {
         getStableDiffusionImageBySearchText(searchParam)
             .then(imageUrl => {
-                console.log(`Image URL received in UI - ${imageUrl}`)
                 setDisplayMode('image')
                 setSrc(imageUrl)
 				loadImageToCanvas(imageUrl);
