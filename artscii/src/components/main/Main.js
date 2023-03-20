@@ -8,13 +8,22 @@ import { useState, useRef } from 'react';
 import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
 import convertToGrayScales from '../../services/convertToGrayScales';
 import drawAscii from '../../services/drawAscii';
+import a_src from './ADELETE'; // delete this!!!!!!!!!!!!!
+import ascii_a from '../../assets/ascii_a';
 
 function Main() {
     const [searchParam, setSearchParam] = useState('');
     const [displayText, setDisplayText] = useState('');
-    const [src, setSrc] = useState(home_gif);
-    const [displayMode, setDisplayMode] = useState('image')
+    // const [src, setSrc] = useState(home_gif);
+    // const [displayMode, setDisplayMode] = useState('image')
 	const [preData, setPreData] = useState('');
+    
+    const [src, setSrc] = useState('');
+    const [displayMode, setDisplayMode] = useState('waiting')
+    // const [src, setSrc] = useState(ascii_a);
+    // const [displayMode, setDisplayMode] = useState('ascii')
+	// const [preData, setPreData] = useState(ascii_a);
+    
     const [searchActive, setSearchActive] = useState(false);
 
     const updateTitle = (param) => {
@@ -26,7 +35,15 @@ function Main() {
         setSearchActive(false);
         setSrc(loading_gif);
         updateTitle(searchParam)
-        setApiImage(searchParam);
+        // setApiImage(searchParam);
+
+        // Delete all this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // setDisplayMode('image');
+        // setSrc(a_src);
+        // loadImageToCanvas(a_src);
+        // setSearchActive(true);
+        // Delete all this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         e.preventDefault();
     }
 
