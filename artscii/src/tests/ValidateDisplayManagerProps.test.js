@@ -48,10 +48,10 @@ it('should throw error for empty props.src value when not using "waiting" displa
     }).toThrowError('No src sent to component!');
 })
 
-it('should throw error for empty props.src value when using "waiting" displayMode', () => {
+it('should not throw error for empty props.src value when using "waiting" displayMode', () => {
     testProps.src = '';
     testProps.displayMode = 'waiting';
     expect(() => {
         validateDisplayManagerProps(testProps)
-    }).not.toThrowError('No src sent to component!');
+    }).not.toThrowError();
 })

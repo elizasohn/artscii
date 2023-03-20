@@ -13,9 +13,7 @@ function Main() {
     const [displayText, setDisplayText] = useState('');
     const [src, setSrc] = useState('');
     const [displayMode, setDisplayMode] = useState('waiting')
-	const [preData, setPreData] = useState('');
-
-    
+    const [preData, setPreData] = useState('');
     const [searchActive, setSearchActive] = useState(false);
 
     const updateTitle = (param) => {
