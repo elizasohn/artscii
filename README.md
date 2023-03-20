@@ -33,7 +33,7 @@ Note: You will need to sign up for a [Dezgo](https://rapidapi.com/dezgo/api/dezg
 ## Usage
 
 [Try it out here!](https://artscii.elizasohn.com/)
-Simply enter a search term, wait for the resulting ai generated image and press "ascify" to see the glorious ascii results!
+Simply enter a search term, wait for the resulting ai generated image and press "asciify" to see the glorious ascii results!
 
 ## Technologies
 
