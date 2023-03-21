@@ -9,10 +9,9 @@ import { getStableDiffusionImageBySearchText } from '../../services/stableDiffus
 import convertToGrayScales from '../../services/convertToGrayScales';
 import drawAscii from '../../services/drawAscii';
 import { getGiphyImageBySearchText } from '../../services/giphyService';
-// import SuperGif from 'lib-gif';
-// import gifler from 'gifler';
-// let gifler = require('gifler');
-
+import AsciifyGifButton from '../asciifyGifButton/AsciifyGifButton';
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
+const ffmpeg = createFFmpeg({ log: true });
 
 function Main() {
     const [searchParam, setSearchParam] = useState('');
@@ -22,6 +21,7 @@ function Main() {
     const [preData, setPreData] = useState('');
     const [searchActive, setSearchActive] = useState(false);
     const [gifMode, setGifMode] = useState(false);
+    const [output, setOutput] = useState();
 
     const handleGifModeChange = () => {
         setGifMode((prev) => !prev);
@@ -33,6 +33,8 @@ function Main() {
     }
 
 	const canvas = useRef();
+    const gifCanvas = useRef();
+    const video = useRef();
     let width = 128;
     let height = 64;
 	let image;
@@ -48,58 +50,100 @@ function Main() {
         };
 	}
 
-    const loadGifToCanvas = () => {
-        // gifler('image.gif').animate(canvas);
-        // const gifElements = document.querySelectorAll('img.gif');
-        // for(const e in gifElements) {
-	    //     const element = gifElements[e];
-	    //     if(element.nodeName == 'IMG') {
-		//         const supergif = new SuperGif({
-        //             gif: element,
-        //             progressbar_height: 0,
-        //             auto_play: false,
-        //         });
-        //         const controlElement = document.createElement("div");
-        //         controlElement.className = "gifcontrol loading g"+e;
-        //         supergif.load((function(controlElement) {
-        //             controlElement.className = "gifcontrol paused";
-        //             const playing = false;
-        //             controlElement.addEventListener("click", function(){
-        //                 if(playing) {
-        //                     this.pause();
-        //                     playing = false;
-        //                     controlElement.className = "gifcontrol paused";
-        //                 } else {
-        //                     this.play();
-        //                     playing = true;
-        //                     controlElement.className = "gifcontrol playing";
-        //                 }
-        //             }.bind(this, controlElement));
-        //         }.bind(supergif))(controlElement)); 
-        //     const canvas = supergif.get_canvas();		
-        //     controlElement.style.width = canvas.width+"px";
-        //     controlElement.style.height = canvas.height+"px";
-        //     controlElement.style.left = canvas.offsetLeft+"px";
-        //     const containerElement = canvas.parentNode;
-        //     containerElement.appendChild(controlElement);
-        // }
+    const loadFfmpeg = async () => {
+        await ffmpeg.load();
+    };
+  
+    const convertCanvasVideoToAscii = () => {
+        const ctx = gifCanvas.current.getContext('2d');
+        setInterval(() => {
+            try {
+                ctx.drawImage(video.current, 0, 0, width, height);
+                const imageData = ctx.getImageData(0, 0, width, height);
+                const grayScales = convertToGrayScales(ctx, imageData);
+                const pre = drawAscii(grayScales, width);   
+                setPreData(pre); 
+            } catch (e) {
+                console.log(e);
+            }
+        }, Math.round(1000 / 100));
+    };
+
+    const loadVideoToCanvas = async () => {
+        video.current.addEventListener("play", () => {
+            const ctx = gifCanvas.current.getContext('2d');
+            gifCanvas.current.width = width;
+            gifCanvas.current.height = height;
+            setInterval(() => {
+                try {
+                    ctx.drawImage(video.current, 0, 0, width, height);
+                } catch (e) {
+                    console.log(e);
+                }
+            }, Math.round(1000 / 100));
+        });
+    }
+  
+    const convertGifToMp4 = async() => {
+        await loadFfmpeg();
+        ffmpeg.FS("writeFile", "input.gif", await fetchFile(src));
+        await ffmpeg.run(
+            "-f",
+            "gif",
+            "-i",
+            "input.gif",
+            "-movflags",
+            "+faststart",
+            "-pix_fmt",
+            "yuv420p",
+            "-vf",
+            "scale=trunc(iw/2)*2:trunc(ih/2)*2",
+            "output.mp4"
+        );
+
+        const data = ffmpeg.FS("readFile", "output.mp4");
+        const blob = new Blob([data.buffer], { type: "video/mp4" });
+        const url = URL.createObjectURL(blob);
+
+        console.log('url ', url);
+        setOutput({
+            blob,
+            url,
+        });
+        console.log('output,,', output);
+        // setDisplayMode('ascii-gif');
+        // setSrc(url);
+        // loadVideoToCanvas();
+        return url;
     }
 
+    const asciifyGif = async () => {
+        const url = await convertGifToMp4();
+        setDisplayMode('ascii-gif');
+        setSrc(url);
+        loadVideoToCanvas();
+        convertCanvasVideoToAscii(); 
+    };
 
     const setApiImage = (searchParam) => {
         if (gifMode === true) {
-            getGiphyImageBySearchText(searchParam)
-                .then(imageUrl => {
-                    setDisplayMode('gif')
-                    setSrc(imageUrl)
-                    loadGifToCanvas();
-                })
-                .catch(err => {
-                    console.log("error encountered = " + err);
-                })
-                .finally(() => {
-                    setSearchActive(true);
-                });
+            // commented out to not use up API calls yet
+
+            // getGiphyImageBySearchText(searchParam)
+            //     .then(imageUrl => {
+            //         setDisplayMode('gif')
+            //         setSrc(imageUrl)
+                // })
+                // .catch(err => {
+                //     console.log("error encountered = " + err);
+                // })
+                // .finally(() => {
+                //     setSearchActive(true);
+                // });
+
+                // uncomment these lines when ready for API calls
+                setDisplayMode('gif');
+                setSrc('https://media3.giphy.com/media/12XGECQYa80YAo/giphy.gif?cid=ae3e3ebb27cc80ah7cgausvw0dtunmlglwbz82y4i6xtsc4n&rid=giphy.gif&ct=g');
         } else {
             getStableDiffusionImageBySearchText(searchParam)
                 .then(imageUrl => {
@@ -127,24 +171,21 @@ function Main() {
     }
 
     const asciify = () => {
-        if (displayMode === 'gif') {
-        } else {
-            const context = canvas.current.getContext('2d');
-            const imageData = context.getImageData(0, 0, width, height);
-            const grayScales = convertToGrayScales(context, imageData);
-            const pre = drawAscii(grayScales, width);   
-            setPreData(pre); 
-            setDisplayMode('ascii');
-            setSearchActive(false);
-        }
+        const context = canvas.current.getContext('2d');
+        const imageData = context.getImageData(0, 0, width, height);
+        const grayScales = convertToGrayScales(context, imageData);
+        const pre = drawAscii(grayScales, width);   
+        setPreData(pre); 
+        setDisplayMode('ascii');
+        setSearchActive(false);
     }
-
 
   return (
        <div className='main'>	
             <SearchTextTitle displayText={displayText}/>
             <DisplayManager src={src} search={searchParam} displayMode={displayMode} preData={preData}/>
             <AsciifyButton searchActive={searchActive} asciify={asciify}/>
+            <AsciifyGifButton displayMode={displayMode} asciifyGif={asciifyGif}/>
             <Input handleSubmit={handleSubmit} searchParam={searchParam} setSearchParam={setSearchParam} setGifMode={setGifMode}/>
             <label>Use Gif: </label>
                 <input
@@ -156,6 +197,11 @@ function Main() {
                     className='canvas'
                     ref={canvas}
             />
+            <canvas 
+                    className='gifCanvas'
+                    ref={gifCanvas}
+            />
+            <video ref={video} id='video-player' src={src} autoPlay={true} loop={true} />
       	</div>
     );
 };
