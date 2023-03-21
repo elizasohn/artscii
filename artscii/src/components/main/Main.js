@@ -76,23 +76,20 @@ function Main() {
 
     const setApiImage = (searchParam) => {
         if (gifMode === true) {
-            // commented out to not use up API calls yet
-
-            // getGiphyImageBySearchText(searchParam)
-            //     .then(imageUrl => {
-            //         setDisplayMode('gif')
-            //         setSrc(imageUrl)
-                // })
-                // .catch(err => {
-                //     console.log("error encountered = " + err);
-                // })
-                // .finally(() => {
-                //     setSearchActive(true);
-                // });
-
-                // uncomment these lines when ready for API calls
-                setDisplayMode('gif');
-                setSrc('https://media3.giphy.com/media/12XGECQYa80YAo/giphy.gif?cid=ae3e3ebb27cc80ah7cgausvw0dtunmlglwbz82y4i6xtsc4n&rid=giphy.gif&ct=g');
+            getGiphyImageBySearchText(searchParam)
+                .then(imageUrl => {
+                    setDisplayMode('gif')
+                    setSrc(imageUrl)
+                })
+                .catch(err => {
+                    console.log("error encountered = " + err);
+                })
+                .finally(() => {
+                    setSearchActive(true);
+                });
+                // uncomment these lines to use without API call
+                // setDisplayMode('gif');
+                // setSrc('https://media3.giphy.com/media/12XGECQYa80YAo/giphy.gif?cid=ae3e3ebb27cc80ah7cgausvw0dtunmlglwbz82y4i6xtsc4n&rid=giphy.gif&ct=g');
         } else {
             getStableDiffusionImageBySearchText(searchParam)
                 .then(imageUrl => {
@@ -139,6 +136,7 @@ function Main() {
                 preData={preData}
             />
             <AsciifyButton 
+                displayMode={displayMode}
                 searchActive={searchActive} 
                 asciify={asciify}
             />
