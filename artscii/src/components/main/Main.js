@@ -10,7 +10,7 @@ import convertToGrayScales from '../../services/convertToGrayScales';
 import drawAscii from '../../services/drawAscii';
 import { getGiphyImageBySearchText } from '../../services/giphyService';
 import AsciifyGifButton from '../asciifyGifButton/AsciifyGifButton';
-import { createFFmpeg, fetchFile, FFmpeg } from "@ffmpeg/ffmpeg";
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 
 function Main() {
     const [searchParam, setSearchParam] = useState('');
