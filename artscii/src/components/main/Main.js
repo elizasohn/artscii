@@ -11,7 +11,7 @@ import drawAscii from '../../services/drawAscii';
 import { getGiphyImageBySearchText } from '../../services/giphyService';
 import AsciifyGifButton from '../asciifyGifButton/AsciifyGifButton';
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
-const ffmpeg = createFFmpeg({ log: true });
+// const ffmpeg = createFFmpeg({ log: true });
 
 function Main() {
     const [searchParam, setSearchParam] = useState('');
@@ -50,6 +50,8 @@ function Main() {
         };
 	}
 
+    let ffmpeg;
+
     const loadFfmpeg = async () => {
         await ffmpeg.load();
     };
@@ -85,6 +87,7 @@ function Main() {
     }
   
     const convertGifToMp4 = async() => {
+        ffmpeg = createFFmpeg({ log: true });
         await loadFfmpeg();
         ffmpeg.FS("writeFile", "input.gif", await fetchFile(src));
         await ffmpeg.run(
@@ -182,17 +185,30 @@ function Main() {
 
   return (
        <div className='main'>	
-            <SearchTextTitle displayText={displayText}/>
-            <DisplayManager src={src} search={searchParam} displayMode={displayMode} preData={preData}/>
-            <AsciifyButton searchActive={searchActive} asciify={asciify}/>
-            <AsciifyGifButton displayMode={displayMode} asciifyGif={asciifyGif}/>
-            <Input handleSubmit={handleSubmit} searchParam={searchParam} setSearchParam={setSearchParam} setGifMode={setGifMode}/>
-            <label>Use Gif: </label>
-                <input
-                    type='checkbox'
-                    checked={gifMode}
-                    onChange={handleGifModeChange}
-                    />
+            <SearchTextTitle 
+                displayText={displayText}
+            />
+            <DisplayManager 
+                src={src} 
+                search={searchParam} 
+                displayMode={displayMode} 
+                preData={preData}
+            />
+            <AsciifyButton 
+                searchActive={searchActive} 
+                asciify={asciify}
+            />
+            <AsciifyGifButton 
+                displayMode={displayMode} 
+                asciifyGif={asciifyGif}
+            />
+            <Input 
+                handleSubmit={handleSubmit} 
+                searchParam={searchParam} 
+                setSearchParam={setSearchParam} 
+                gifMode={gifMode} 
+                setGifMode={setGifMode} handleGifModeChange={handleGifModeChange} 
+            />
             <canvas 
                     className='canvas'
                     ref={canvas}
