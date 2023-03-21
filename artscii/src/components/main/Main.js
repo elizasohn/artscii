@@ -9,8 +9,9 @@ import { getStableDiffusionImageBySearchText } from '../../services/stableDiffus
 import convertToGrayScales from '../../services/convertToGrayScales';
 import drawAscii from '../../services/drawAscii';
 import { getGiphyImageBySearchText } from '../../services/giphyService';
-// import Konva from 'react-konva';
-// import gifFrames from "gif-frames";
+// import SuperGif from 'lib-gif';
+// import gifler from 'gifler';
+// let gifler = require('gifler');
 
 
 function Main() {
@@ -30,15 +31,6 @@ function Main() {
         setDisplayText(param)
         setSearchParam('')
     }
-    const handleSubmit = (e) => {
-        console.log('e: ', e);
-        setDisplayMode('loading');
-        setSearchActive(false);
-        setSrc(loading_gif);
-        updateTitle(searchParam)
-        setApiImage(searchParam);
-        e.preventDefault();
-    }
 
 	const canvas = useRef();
     let width = 128;
@@ -56,59 +48,43 @@ function Main() {
         };
 	}
 
-    // const loadGifToCanvas = (imageUrl) => {
-    // function useLoadGifToCanvas(imageUrl) {
-    //     useEffect(() => {
-    //         gifFrames({
-    //         url: imageUrl,
-    //         frames: 0,
-    //         outputType: "canvas",
-    //         })
-    //         .then(function (frameData) {
-    //             document.body.append(frameData[0].getImage());
-    //         })
-    //         .catch((err) => console.log(err));
-    //     }, []);
-    // };
-    // };
+    const loadGifToCanvas = () => {
+        // gifler('image.gif').animate(canvas);
+        // const gifElements = document.querySelectorAll('img.gif');
+        // for(const e in gifElements) {
+	    //     const element = gifElements[e];
+	    //     if(element.nodeName == 'IMG') {
+		//         const supergif = new SuperGif({
+        //             gif: element,
+        //             progressbar_height: 0,
+        //             auto_play: false,
+        //         });
+        //         const controlElement = document.createElement("div");
+        //         controlElement.className = "gifcontrol loading g"+e;
+        //         supergif.load((function(controlElement) {
+        //             controlElement.className = "gifcontrol paused";
+        //             const playing = false;
+        //             controlElement.addEventListener("click", function(){
+        //                 if(playing) {
+        //                     this.pause();
+        //                     playing = false;
+        //                     controlElement.className = "gifcontrol paused";
+        //                 } else {
+        //                     this.play();
+        //                     playing = true;
+        //                     controlElement.className = "gifcontrol playing";
+        //                 }
+        //             }.bind(this, controlElement));
+        //         }.bind(supergif))(controlElement)); 
+        //     const canvas = supergif.get_canvas();		
+        //     controlElement.style.width = canvas.width+"px";
+        //     controlElement.style.height = canvas.height+"px";
+        //     controlElement.style.left = canvas.offsetLeft+"px";
+        //     const containerElement = canvas.parentNode;
+        //     containerElement.appendChild(controlElement);
+        // }
+    }
 
-    //     const stage = new Konva.Stage({
-    //         container: 'container',
-    //         width: width,
-    //         height: height
-    //     });
-
-    //     const layer = new Konva.Layer();
-    //     stage.add(layer);
-
-    //     // use external library to parse and draw gif animation
-    //     function onDrawFrame(ctx, frame) {
-    //         // update canvas size
-    //         canvas.width = frame.width;
-    //         canvas.height = frame.height;
-    //         // update canvas that we are using for Konva.Image
-    //         ctx.drawImage(frame.buffer, 0, 0);
-    //         // redraw the layer
-    //         layer.draw();
-    //     }
-
-    //   gifler('/assets/yoda.gif').frames(canvas, onDrawFrame);
-
-    //   // draw resulted canvas into the stage as Konva.Image
-    //   var image = new Konva.Image({
-    //     image: canvas
-    //   });
-    //   layer.add(image);
-
-	// 	gif = new Gif();
-	// 	image.src = imageUrl;
-    //     const context = canvas.current.getContext('2d');
-    //     image.onload = () => {
-    //         canvas.width = width;
-    //         canvas.height = height;
-    //         context.drawImage(image, 0, 0, width, height);
-    //     };
-	// }
 
     const setApiImage = (searchParam) => {
         if (gifMode === true) {
@@ -116,7 +92,7 @@ function Main() {
                 .then(imageUrl => {
                     setDisplayMode('gif')
                     setSrc(imageUrl)
-                    loadImageToCanvas(imageUrl);
+                    loadGifToCanvas();
                 })
                 .catch(err => {
                     console.log("error encountered = " + err);
@@ -140,20 +116,18 @@ function Main() {
         }
     }
 
+    const handleSubmit = (e) => {
+        console.log('e: ', e);
+        setDisplayMode('loading');
+        setSearchActive(false);
+        setSrc(loading_gif);
+        updateTitle(searchParam)
+        setApiImage(searchParam);
+        e.preventDefault();
+    }
+
     const asciify = () => {
         if (displayMode === 'gif') {
-        //     useAsciifyGif(src);
-        //     useEffect(() => {
-        //     gifFrames({
-        //     url: src,
-        //     frames: 0,
-        //     outputType: "canvas",
-        //     })
-        //     .then(function (frameData) {
-        //         document.body.append(frameData[0].getImage());
-        //     })
-        //     .catch((err) => console.log(err));
-        // }, []);
         } else {
             const context = canvas.current.getContext('2d');
             const imageData = context.getImageData(0, 0, width, height);
@@ -165,19 +139,6 @@ function Main() {
         }
     }
 
-    // function useAsciifyGif(src) {
-    //     useEffect((src) => {
-    //         gifFrames({
-    //         url: src,
-    //         frames: 0,
-    //         outputType: "canvas",
-    //         })
-    //         .then(function (frameData) {
-    //             document.body.append(frameData[0].getImage());
-    //         })
-    //         .catch((err) => console.log(err));
-    //     }, [src]);
-    // // };
 
   return (
        <div className='main'>	

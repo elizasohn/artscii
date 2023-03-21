@@ -1,7 +1,6 @@
-import { React, useEffect} from 'react';
+import { React } from 'react';
 import './display.css'
 import { validateDisplayManagerProps } from './validateDisplayManagerProps';
-import gifFrames from "gif-frames";
 
 const DisplayManager = (props) => {
     try {
@@ -83,19 +82,6 @@ const AsciiDisplay = (props) => {
 }
 
 const AsciiGifDisplay = (props) => {
-
-    useEffect(() => {
-            gifFrames({
-            url: props.src,
-            frames: 0,
-            outputType: "canvas",
-            })
-            .then(function (frameData) {
-                document.body.append(frameData[0].getImage());
-            })
-            .catch((err) => console.log(err));
-        }, [props.src]);
-
     return(
         <div className='player-window' id='ascii-gif-display-window'>
             <pre id='ascii'>{props.preData}</pre>
