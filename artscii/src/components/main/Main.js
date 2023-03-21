@@ -13,9 +13,10 @@ import {
     convertToGrayScales, getStableDiffusionImageBySearchText, 
     drawAscii,
     getGiphyImageBySearchText,
+    loadVideoToCanvas,
+    convertGifToMp4,
+    convertCanvasVideoToAscii,
 } from '../../services/services';
-
-import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 
 function Main() {
     const [searchParam, setSearchParam] = useState('');
@@ -25,7 +26,6 @@ function Main() {
     const [preData, setPreData] = useState('');
     const [searchActive, setSearchActive] = useState(false);
     const [gifMode, setGifMode] = useState(false);
-    // const [output, setOutput] = useState();
 
     const handleGifModeChange = () => {
         setGifMode((prev) => !prev);
@@ -64,73 +64,14 @@ function Main() {
         };
 	}
 
-    let ffmpeg;
-
-    const loadFfmpeg = async () => {
-        await ffmpeg.load();
-    };
-  
-    const convertCanvasVideoToAscii = () => {
-        const ctx = gifCanvas.current.getContext('2d');
-        setInterval(() => {
-            try {
-                ctx.drawImage(video.current, 0, 0, width, height);
-                const imageData = ctx.getImageData(0, 0, width, height);
-                const grayScales = convertToGrayScales(ctx, imageData);
-                const pre = drawAscii(grayScales, width);   
-                setPreData(pre); 
-            } catch (e) {
-                console.log(e);
-            }
-        }, Math.round(1000 / 100));
-    };
-
-    const loadVideoToCanvas = async () => {
-        video.current.addEventListener("play", () => {
-            const ctx = gifCanvas.current.getContext('2d');
-            gifCanvas.current.width = width;
-            gifCanvas.current.height = height;
-            setInterval(() => {
-                try {
-                    ctx.drawImage(video.current, 0, 0, width, height);
-                } catch (e) {
-                    console.log(e);
-                }
-            }, Math.round(1000 / 100));
-        });
-    }
-  
-    const convertGifToMp4 = async() => {
-        ffmpeg = createFFmpeg({ log: true });
-        await loadFfmpeg();
-        ffmpeg.FS("writeFile", "input.gif", await fetchFile(src));
-        await ffmpeg.run(
-            "-f",
-            "gif",
-            "-i",
-            "input.gif",
-            "-movflags",
-            "+faststart",
-            "-pix_fmt",
-            "yuv420p",
-            "-vf",
-            "scale=trunc(iw/2)*2:trunc(ih/2)*2",
-            "output.mp4"
-        );
-        const data = ffmpeg.FS("readFile", "output.mp4");
-        const blob = new Blob([data.buffer], { type: "video/mp4" });
-        const url = URL.createObjectURL(blob);
-        return url;
-    }
-
     const asciifyGif = async () => {
         setDisplayMode('loading');
         setSrc(loading_gif);
-        const url = await convertGifToMp4();
+        const url = await convertGifToMp4(src);
         setDisplayMode('ascii-gif');
         setSrc(url);
-        loadVideoToCanvas();
-        convertCanvasVideoToAscii(); 
+        loadVideoToCanvas(video, gifCanvas, width, height);
+        convertCanvasVideoToAscii(gifCanvas, video, setPreData, width, height); 
     };
 
     const setApiImage = (searchParam) => {
@@ -221,7 +162,13 @@ function Main() {
                     className='gifCanvas'
                     ref={gifCanvas}
             />
-            <video ref={video} id='video-player' src={src} autoPlay={true} loop={true} />
+            <video 
+                ref={video} 
+                id='video-player' 
+                src={src} 
+                autoPlay={true} 
+                loop={true} 
+            />
       	</div>
     );
 };
