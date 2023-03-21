@@ -1,13 +1,18 @@
 import './Main.css';
-import SearchTextTitle from '../searchTextTitle/SearchTextTitle';
-import DisplayManager from '../displayManager/DisplayManager';
-import AsciifyButton from '../asciifyButton/AsciifyButton';
-import Input from '../input/Input';
+import { useState, useRef } from 'react';
 import loading_gif from '../../assets/loading-spinner.gif';
-import { React, useState, useRef } from 'react';
-import { getStableDiffusionImageBySearchText } from '../../services/stableDiffusionService';
-import convertToGrayScales from '../../services/convertToGrayScales';
-import drawAscii from '../../services/drawAscii';
+import { React,
+    SearchTextTitle,
+    DisplayManager,
+    AsciifyButton,
+    Input
+} from '../components';
+import { 
+    convertToGrayScales, getStableDiffusionImageBySearchText, 
+    drawAscii 
+} from '../../services/services';
+
+import DownloadButton from '../downloadButton/DownloadButton';
 import { getGiphyImageBySearchText } from '../../services/giphyService';
 import AsciifyGifButton from '../asciifyGifButton/AsciifyGifButton';
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
@@ -29,6 +34,16 @@ function Main() {
     const updateTitle = (param) => {
         setDisplayText(param)
         setSearchParam('')
+    }
+    const handleSubmit = (e) => {
+        if (!launchEasterEgg(searchParam)) {
+            setDisplayMode('loading');
+            setSearchActive(false);
+            setSrc(loading_gif);
+            setApiImage(searchParam);
+        }
+        updateTitle(searchParam)
+        e.preventDefault();
     }
 
 	const canvas = useRef();
@@ -153,16 +168,6 @@ function Main() {
         }
     }
 
-    const handleSubmit = (e) => {
-        console.log('e: ', e);
-        setDisplayMode('loading');
-        setSearchActive(false);
-        setSrc(loading_gif);
-        updateTitle(searchParam)
-        setApiImage(searchParam);
-        e.preventDefault();
-    }
-
     const asciify = () => {
         const context = canvas.current.getContext('2d');
         const imageData = context.getImageData(0, 0, width, height);
@@ -171,6 +176,14 @@ function Main() {
         setPreData(pre); 
         setDisplayMode('ascii');
         setSearchActive(false);
+    }
+    
+    const launchEasterEgg = (text) => {
+        if (text === '!pacman!') {
+            setDisplayMode('easter');
+            return true;
+        }
+        return false;
     }
 
   return (
@@ -192,7 +205,8 @@ function Main() {
                 displayMode={displayMode} 
                 asciifyGif={asciifyGif}
             />
-            <Input 
+            <DownloadButton displayMode={displayMode} />
+          <Input 
                 handleSubmit={handleSubmit} 
                 searchParam={searchParam} 
                 setSearchParam={setSearchParam} 
