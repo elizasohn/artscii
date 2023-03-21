@@ -5,16 +5,16 @@ import { React,
     SearchTextTitle,
     DisplayManager,
     AsciifyButton,
-    Input
+    AsciifyGifButton,
+    Input,
+    DownloadButton
 } from '../components';
 import { 
     convertToGrayScales, getStableDiffusionImageBySearchText, 
-    drawAscii 
+    drawAscii,
+    getGiphyImageBySearchText,
 } from '../../services/services';
 
-import DownloadButton from '../downloadButton/DownloadButton';
-import { getGiphyImageBySearchText } from '../../services/giphyService';
-import AsciifyGifButton from '../asciifyGifButton/AsciifyGifButton';
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 
 function Main() {
