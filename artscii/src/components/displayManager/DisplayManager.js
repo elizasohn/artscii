@@ -1,6 +1,7 @@
-import React from 'react';
+import { React, useEffect} from 'react';
 import './display.css'
 import { validateDisplayManagerProps } from './validateDisplayManagerProps';
+import gifFrames from "gif-frames";
 
 const DisplayManager = (props) => {
     try {
@@ -12,10 +13,22 @@ const DisplayManager = (props) => {
                         <ImageDisplay src={props.src} search={props.search} setDisplayMode={props.setDisplayMode}/>
                     </div>
                 );
+            case 'gif':
+                return (
+                    <div className='display-window'>
+                        <GifDisplay src={props.src} search={props.search} setDisplayMode={props.setDisplayMode}/>
+                    </div>
+                )
             case 'ascii':
                 return(
                     <div className='display-window'>
                         <AsciiDisplay src={props.src} search={props.search} preData={props.preData} />
+                    </div>
+                )
+            case 'ascii-gif':
+                return(
+                    <div className='display-window'>
+                        <AsciiGifDisplay src={props.src} search={props.search} preData={props.preData} />
                     </div>
                 )
             case 'loading':
@@ -52,9 +65,39 @@ const ImageDisplay = (props) => {
     )
 }
 
+const GifDisplay = (props) => {
+    return(
+        <div className='player-window' id='gif-display-window'>
+            <h2 className='title-text'>{props.search}</h2>
+            <img src={props.src} alt={props.search} className="image-display"/>
+        </div>
+    )
+}
+
 const AsciiDisplay = (props) => {
     return(
         <div className='player-window' id='ascii-display-window'>
+            <pre id='ascii'>{props.preData}</pre>
+        </div>
+    )
+}
+
+const AsciiGifDisplay = (props) => {
+
+    useEffect(() => {
+            gifFrames({
+            url: props.src,
+            frames: 0,
+            outputType: "canvas",
+            })
+            .then(function (frameData) {
+                document.body.append(frameData[0].getImage());
+            })
+            .catch((err) => console.log(err));
+        }, [props.src]);
+
+    return(
+        <div className='player-window' id='ascii-gif-display-window'>
             <pre id='ascii'>{props.preData}</pre>
         </div>
     )
