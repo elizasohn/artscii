@@ -10,8 +10,7 @@ import convertToGrayScales from '../../services/convertToGrayScales';
 import drawAscii from '../../services/drawAscii';
 import { getGiphyImageBySearchText } from '../../services/giphyService';
 import AsciifyGifButton from '../asciifyGifButton/AsciifyGifButton';
-import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
-// const ffmpeg = createFFmpeg({ log: true });
+import { createFFmpeg, fetchFile, FFmpeg } from "@ffmpeg/ffmpeg";
 
 function Main() {
     const [searchParam, setSearchParam] = useState('');
@@ -21,7 +20,7 @@ function Main() {
     const [preData, setPreData] = useState('');
     const [searchActive, setSearchActive] = useState(false);
     const [gifMode, setGifMode] = useState(false);
-    const [output, setOutput] = useState();
+    // const [output, setOutput] = useState();
 
     const handleGifModeChange = () => {
         setGifMode((prev) => !prev);
@@ -103,24 +102,15 @@ function Main() {
             "scale=trunc(iw/2)*2:trunc(ih/2)*2",
             "output.mp4"
         );
-
         const data = ffmpeg.FS("readFile", "output.mp4");
         const blob = new Blob([data.buffer], { type: "video/mp4" });
         const url = URL.createObjectURL(blob);
-
-        console.log('url ', url);
-        setOutput({
-            blob,
-            url,
-        });
-        console.log('output,,', output);
-        // setDisplayMode('ascii-gif');
-        // setSrc(url);
-        // loadVideoToCanvas();
         return url;
     }
 
     const asciifyGif = async () => {
+        setDisplayMode('loading');
+        setSrc(loading_gif);
         const url = await convertGifToMp4();
         setDisplayMode('ascii-gif');
         setSrc(url);
