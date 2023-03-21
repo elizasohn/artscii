@@ -1,5 +1,5 @@
 // Function to validate props passed to the Player componeont. Throws errors for Player to catch
-let validModes = ['image', 'gif', 'ascii', 'loading', 'waiting']
+let validModes = ['image', 'gif', 'ascii', 'ascii-gif', 'loading', 'waiting']
 
 function validateDisplayManagerProps (props) {
     if (!props.displayMode){
