@@ -77,22 +77,22 @@ function Main() {
 
     const setApiImage = (searchParam) => {
         if (gifMode === true) {
-            // getGiphyImageBySearchText(searchParam)
-            //     .then(imageUrl => {
-            //         setDisplayMode('gif')
-            //         setSrc(imageUrl)
-            //     })
-            //     .catch(err => {
-            //         console.log("error encountered = " + err);
-            //     })
-            //     .finally(() => {
-            //         setSearchActive(true);
-            //     });
+            getGiphyImageBySearchText(searchParam)
+                .then(imageUrl => {
+                    setDisplayMode('gif')
+                    setSrc(imageUrl)
+                })
+                .catch(err => {
+                    console.log("error encountered = " + err);
+                })
+                .finally(() => {
+                    setSearchActive(true);
+                });
                 // uncomment these lines to use without API call
                 // first src has cat on motorcycle
-                setSearchActive(true);
-                setDisplayMode('gif');
-                setSrc("https://media2.giphy.com/media/cfuL5gqFDreXxkWQ4o/giphy.gif?cid=ae3e3ebb1j2bpi6e5in48v37ieu5l80qd4yezcvdj0ldstql&rid=giphy.gif&ct=g");
+                // setSearchActive(true);
+                // setDisplayMode('gif');
+                // setSrc("https://media2.giphy.com/media/cfuL5gqFDreXxkWQ4o/giphy.gif?cid=ae3e3ebb1j2bpi6e5in48v37ieu5l80qd4yezcvdj0ldstql&rid=giphy.gif&ct=g");
 
 
                 // setSrc('https://media3.giphy.com/media/12XGECQYa80YAo/giphy.gif?cid=ae3e3ebb27cc80ah7cgausvw0dtunmlglwbz82y4i6xtsc4n&rid=giphy.gif&ct=g');
