@@ -1,4 +1,5 @@
 import React from 'react';
+import './Input.css';
 
 function Input(props) {
     return (
@@ -13,8 +14,16 @@ function Input(props) {
                         onChange={e => props.setSearchParam(e.target.value)}
                     />
                     <input 
+                        className='search-submit'
                         type='submit'
                         value='Submit'
+                    />
+                    <label className='gif-label'>Use Gif: </label>
+                    <input
+                        className='search-checkbox'
+                        type='checkbox'
+                        checked={props.gifMode}
+                        onChange={props.handleGifModeChange}
                     />
                 </form>
             </div>
